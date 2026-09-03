@@ -18,7 +18,12 @@ export default function Register() {
       toast.success('Account created successfully!');
       navigate('/dashboard');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
+      const data = error.response?.data;
+      if (data?.errors?.length) {
+        data.errors.forEach(err => toast.error(`${err.path}: ${err.msg}`));
+      } else {
+        toast.error(data?.message || 'Registration failed. Please try again.');
+      }
     } finally {
       setSubmitting(false);
     }

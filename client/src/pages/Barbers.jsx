@@ -13,8 +13,9 @@ export default function Barbers() {
     const fetchBarbers = async () => {
       try {
         const res = await api.get('/barbers?active=true');
-        setBarbers(res.data.data);
-        const allSpecialties = [...new Set(res.data.data.flatMap(b => b.specialties || []))];
+        const barberData = res.data.data ?? [];
+        setBarbers(barberData);
+        const allSpecialties = [...new Set(barberData.flatMap(b => b.specialties || []))];
         setSpecialties(allSpecialties);
       } catch (err) {
         setError('Failed to load barbers');

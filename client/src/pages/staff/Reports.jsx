@@ -95,7 +95,7 @@ export default function StaffReports() {
     labels: revenueReport.chartData.map(d => d.date),
     datasets: [{
       label: 'Revenue',
-      data: revenueChartData.chartData?.map(d => d.revenue) || [],
+      data: revenueReport.chartData.map(d => d.revenue),
       borderColor: '#10b981',
       backgroundColor: 'rgba(16, 185, 129, 0.1)',
       fill: true,

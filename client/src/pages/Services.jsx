@@ -73,7 +73,7 @@ export default function Services() {
     const fetchServices = async () => {
       try {
         const res = await api.get('/services?active=true');
-        setServices(res.data.data);
+        setServices(res.data.data ?? []);
       } catch (err) {
         setError('Failed to load services');
       } finally {

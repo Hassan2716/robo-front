@@ -38,9 +38,9 @@ export default {
         display: ['Playfair Display', 'serif'],
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'slide-down': 'slideDown 0.3s ease-out',
+        'fade-in': 'fadeIn 0.5s ease-out forwards',
+        'slide-up': 'slideUp 0.5s ease-out both',
+        'slide-down': 'slideDown 0.3s ease-out both',
       },
       keyframes: {
         fadeIn: {

@@ -8,6 +8,7 @@ export default function Home() {
   const [barbers, setBarbers] = useState([]);
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,10 +17,12 @@ export default function Home() {
           api.get('/barbers?active=true'),
           api.get('/services?active=true'),
         ]);
-        setBarbers(barbersRes.data.data.slice(0, 3));
-        setServices(servicesRes.data.data.slice(0, 4));
+        setBarbers(barbersRes.data.data?.slice(0, 3) ?? []);
+        setServices(servicesRes.data.data?.slice(0, 4) ?? []);
+        setError(false);
       } catch (error) {
         console.error('Failed to fetch home data:', error);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -113,6 +116,10 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          ) : error ? (
+            <p className="text-center text-dark-500 py-12">Unable to load barbers right now. Please try again later.</p>
+          ) : barbers.length === 0 ? (
+            <p className="text-center text-dark-500 py-12">No barbers available at the moment.</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {barbers.map((barber) => (
@@ -168,7 +175,11 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service) => (
+            {error ? (
+              <p className="col-span-full text-center text-dark-500 py-12">Unable to load services right now. Please try again later.</p>
+            ) : services.length === 0 ? (
+              <p className="col-span-full text-center text-dark-500 py-12">No services available at the moment.</p>
+            ) : services.map((service) => (
               <article key={service._id} className="card group p-6 flex flex-col">
                 <div className="w-14 h-14 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 mb-4 group-hover:bg-primary-500 group-hover:text-white transition-colors">
                   {service.category === 'haircut' && <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.15 9.15"/></svg>}

@@ -1,5 +1,6 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import { useEffect } from 'react';
 import Layout from './components/Layout';
 import AdminLayout from './components/AdminLayout';
 
@@ -78,6 +79,16 @@ const PublicOnlyRoute = ({ children }) => {
 };
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleAuthExpired = () => {
+      navigate('/login', { replace: true });
+    };
+    window.addEventListener('auth-expired', handleAuthExpired);
+    return () => window.removeEventListener('auth-expired', handleAuthExpired);
+  }, [navigate]);
+
   return (
     <Routes>
       {/* Public Routes */}

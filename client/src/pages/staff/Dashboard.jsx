@@ -195,21 +195,21 @@ export default function StaffDashboard() {
             </div>
             <div className="divide-y divide-dark-100">
               {upcomingAppointments.map((apt) => (
-                <div key={apt._id} className="p-4 hover:bg-dark-50 flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 flex-shrink-0">
+                <div key={apt._id} className="p-4 hover:bg-dark-50 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 flex-shrink-0">
                       <span className="font-display font-bold">{apt.customer?.name?.charAt(0) || '?'}</span>
                     </div>
                     <div>
-                      <h3 className="font-medium text-dark-900">{apt.service?.name}</h3>
-                      <p className="text-sm text-dark-500">{apt.customer?.name}</p>
-                      <div className="flex items-center gap-4 mt-1 text-sm text-dark-500">
+                      <h3 className="font-medium text-dark-900 truncate">{apt.service?.name}</h3>
+                      <p className="text-sm text-dark-500 truncate">{apt.customer?.name}</p>
+                      <div className="flex items-center gap-3 mt-1 text-sm text-dark-500">
                         <span>{formatDate(apt.date)}</span>
                         <span>{formatTime(apt.time)}</span>
                       </div>
                     </div>
                   </div>
-                  <span className={`badge ${statusColors[apt.status]}`}>{apt.status}</span>
+                  <span className={`badge ${statusColors[apt.status]} flex-shrink-0`}>{apt.status}</span>
                 </div>
               ))}
             </div>
@@ -354,9 +354,9 @@ export default function StaffDashboard() {
         ) : (
           <div className="divide-y divide-dark-100">
             {todayAppointments.slice(0, 10).map((apt) => (
-              <div key={apt._id} className="p-4 hover:bg-dark-50 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 flex-shrink-0 overflow-hidden">
+              <div key={apt._id} className="p-4 hover:bg-dark-50 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary-500/10 flex items-center justify-center text-primary-500 flex-shrink-0 overflow-hidden">
                     {apt.barber?.photo ? (
                       <img
                         src={apt.barber.photo}
@@ -369,20 +369,20 @@ export default function StaffDashboard() {
                       {apt.barber?.name?.charAt(0)}
                     </span>
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-dark-900">{apt.service?.name}</h3>
-                      <span className={`badge ${statusColors[apt.status]}`}>{apt.status}</span>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-medium text-dark-900 truncate">{apt.service?.name}</h3>
+                      <span className={`badge ${statusColors[apt.status]} flex-shrink-0`}>{apt.status}</span>
                     </div>
-                    <p className="text-sm text-dark-500">{apt.barber?.name} • {apt.customer?.name}</p>
-                    <div className="flex items-center gap-4 mt-1 text-sm text-dark-500">
+                    <p className="text-sm text-dark-500 truncate">{apt.barber?.name} • {apt.customer?.name}</p>
+                    <div className="flex items-center gap-3 mt-1 text-sm text-dark-500">
                       <span>{formatTime(apt.time)}</span>
                       <span>${apt.totalPrice}</span>
                     </div>
                   </div>
                 </div>
                 {hasRole(['receptionist', 'admin']) && (
-                  <Link to="/staff/appointments" className="btn-ghost text-sm">Manage</Link>
+                  <Link to="/staff/appointments" className="btn-ghost text-sm flex-shrink-0 hidden sm:inline-block">Manage</Link>
                 )}
               </div>
             ))}

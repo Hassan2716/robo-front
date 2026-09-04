@@ -44,8 +44,8 @@ export default function BarberDetail() {
     return (
       <div className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 animate-pulse space-y-8">
-          <div className="flex gap-8">
-            <div className="aspect-square w-64 bg-dark-100 rounded-xl" />
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="aspect-square w-full md:w-64 bg-dark-100 rounded-xl" />
             <div className="flex-1 space-y-4">
               <div className="h-8 bg-dark-100 rounded w-1/3" />
               <div className="h-4 bg-dark-100 rounded w-1/2" />

@@ -109,10 +109,10 @@ export default function StaffPOS() {
               <h2 className="font-display text-lg font-semibold text-dark-900 mb-4">Items</h2>
               
               {fields.map((field, index) => (
-                <div key={field.id} className="flex gap-3 mb-4 items-start">
+                <div key={field.id} className="flex flex-col sm:flex-row gap-3 mb-4 items-start sm:items-center">
                   <select
                     {...register(`items.${index}.type`)}
-                    className="input w-32"
+                    className="input sm:w-32"
                     onChange={(e) => {
                       setValue(`items.${index}.type`, e.target.value);
                       setValue(`items.${index}.item`, '');
@@ -129,40 +129,42 @@ export default function StaffPOS() {
                   >
                     <option value="">Select {items[index]?.type || 'type'} first</option>
                     {items[index]?.type === 'service' && services.map(s => (
-                      <option key={s._id} value={s._id}>{s.name} - $${s.price} ({s.duration}min)</option>
+                      <option key={s._id} value={s._id}>{s.name} - ${s.price} ({s.duration}min)</option>
                     ))}
                     {items[index]?.type === 'product' && products.map(p => (
-                      <option key={p._id} value={p._id}>{p.name} - $${p.price} (Stock: {p.stock})</option>
+                      <option key={p._id} value={p._id}>{p.name} - ${p.price} (Stock: {p.stock})</option>
                     ))}
                   </select>
 
-                  <input
-                    type="number"
-                    min="1"
-                    max={99}
-                    {...register(`items.${index}.quantity`)}
-                    className="input w-20"
-                    onChange={(e) => setValue(`items.${index}.quantity`, parseInt(e.target.value) || 1)}
-                  />
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <input
+                      type="number"
+                      min="1"
+                      max={99}
+                      {...register(`items.${index}.quantity`)}
+                      className="input w-20"
+                      onChange={(e) => setValue(`items.${index}.quantity`, parseInt(e.target.value) || 1)}
+                    />
 
-                  <div className="text-right pt-2 w-24">
-                    {getItemPrice(field) > 0 && (
-                      <div className="font-medium text-dark-900">${getItemPrice(field).toFixed(2)}</div>
+                    <div className="text-right pt-2 w-20 sm:w-24 flex-shrink-0">
+                      {getItemPrice(field) > 0 && (
+                        <div className="font-medium text-dark-900">${getItemPrice(field).toFixed(2)}</div>
+                      )}
+                    </div>
+
+                    {fields.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => remove(index)}
+                        className="text-red-500 hover:text-red-700 p-2 flex-shrink-0"
+                        aria-label="Remove item"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                      </button>
                     )}
                   </div>
-
-                  {fields.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => remove(index)}
-                      className="text-red-500 hover:text-red-700 p-2"
-                      aria-label="Remove item"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
-                      </svg>
-                    </button>
-                  )}
                 </div>
               ))}
 
@@ -206,15 +208,15 @@ export default function StaffPOS() {
             </div>
 
             <div className="card p-6 bg-dark-50 border-dark-200">
-              <div className="flex justify-between items-center">
-                <div>
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div className="text-center sm:text-left">
                   <p className="text-sm text-dark-500">Subtotal</p>
                   <p className="font-display text-3xl font-bold text-dark-900">${total.toFixed(2)}</p>
                 </div>
                 <button
                   type="submit"
                   disabled={loading || items.filter(i => i.item).length === 0}
-                  className="btn-primary px-8 py-4 text-lg"
+                  className="btn-primary px-8 py-4 text-lg w-full sm:w-auto"
                 >
                   {loading ? 'Processing...' : `Charge $${total.toFixed(2)}`}
                 </button>

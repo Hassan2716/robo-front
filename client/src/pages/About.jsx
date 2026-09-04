@@ -56,7 +56,7 @@ export default function About() {
                   <div className="text-center p-8">
                     <div className="text-6xl font-display font-bold mb-4">2015</div>
                     <div className="text-xl opacity-90">Established</div>
-                    <div className="mt-8 flex justify-center gap-8 text-2xl font-bold">
+                    <div className="mt-8 flex flex-wrap justify-center gap-4 sm:gap-8 text-xl sm:text-2xl font-bold">
                       <div>
                         <div>5000+</div>
                         <div className="text-sm opacity-75">Happy Clients</div>

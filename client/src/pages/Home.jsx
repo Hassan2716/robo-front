@@ -91,7 +91,7 @@ export default function Home() {
 
       <section className="py-20 bg-dark-50" aria-labelledby="barbers-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-4">
             <div>
               <h2 id="barbers-heading" className="font-display text-3xl sm:text-4xl font-bold text-dark-900 mb-2">
                 Our Master Barbers
@@ -164,7 +164,7 @@ export default function Home() {
 
       <section className="py-20 bg-white" aria-labelledby="services-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-4">
             <div>
               <h2 id="services-heading" className="font-display text-3xl sm:text-4xl font-bold text-dark-900 mb-2">
                 Popular Services
